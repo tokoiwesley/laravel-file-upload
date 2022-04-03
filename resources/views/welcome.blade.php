@@ -6,10 +6,7 @@
 
     <title>{{ config('app.name') }}</title>
 
-    <!-- Fonts -->
-{{--    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">--}}
-
-<!-- Styles -->
+    <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
         body {
@@ -20,7 +17,7 @@
 <body class="antialiased">
 
 <div class="container mt-5">
-    <form action="" method="post">
+    <form action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
         @csrf
         <fieldset>
             <legend>File Upload Example</legend>
