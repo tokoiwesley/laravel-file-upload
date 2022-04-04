@@ -15,11 +15,11 @@ return new class extends Migration {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_no');
-            $table->string('tock_code');
-            $table->string('description');
+            $table->string('stock_code');
+            $table->string('description')->nullable();
             $table->integer('quantity');
-            $table->timestamp('invoice_date');
-            $table->decimal('unit_price');
+            $table->string('invoice_date');
+            $table->decimal('unit_price', 8, 2);
             $table->integer('customer_id')->nullable();
             $table->string('country');
             $table->timestamps();
