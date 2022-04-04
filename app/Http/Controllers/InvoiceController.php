@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\InvoiceImport;
+use App\Jobs\ProcessInvoiceSpreadsheet;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceController extends Controller
 {
     public function upload(Request $request)
     {
-        ini_set('memory_limit', '1024M');
-        ini_set('max_execution_time', '900');
+        // Validate file
+        if ($request->hasFile('data') && $request->file('data')->isValid()) {
+            $path = $request->data->storeAS('spreadsheets', 'data.csv');
+        } else {
+            abort(400);
+        }
 
-        Excel::import(new InvoiceImport, $request->file('data'));
+        // Process file on a queue
+        ProcessInvoiceSpreadsheet::dispatch($path);
 
+        // Response after a successful upload
         return redirect(route('upload.success'));
     }
 }
