@@ -10,17 +10,23 @@ class InvoiceController extends Controller
 {
     public function upload(Request $request)
     {
-        // Validate file
+        // Validate request
+        $request->validate([
+            'data' => 'required|file|mimes:csv,txt'
+        ]);
+
+        // Check that file was uploaded without any errors
         if ($request->hasFile('data') && $request->file('data')->isValid()) {
+            // Store file on local storage
             $path = $request->data->storeAS('spreadsheets', 'data.csv');
         } else {
             abort(400);
         }
 
-        // Process file on a queue
+        // Process file as a queued job
         ProcessInvoiceSpreadsheet::dispatch($path);
 
-        // Response after a successful upload
+        // Start indexing invoices after a successful upload
         return redirect(route('index'));
     }
 

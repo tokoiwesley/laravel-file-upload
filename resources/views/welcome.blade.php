@@ -24,6 +24,11 @@
             <div class="form-group mb-3">
                 <label for="data">Upload data file</label>
                 <input type="file" class="form-control" name="data" id="data" required>
+                @if($errors->has('data'))
+                    <span class="text-danger">
+                        <strong>{{ $errors->first('data') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Submit</button>

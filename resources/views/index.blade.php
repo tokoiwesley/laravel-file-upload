@@ -53,10 +53,11 @@
         </tbody>
     </table>
 
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mb-5">
         <div>
             Page {{ $invoices->currentPage() }} of {{ $invoices->lastPage() }}.
             Displaying {{ $invoices->count() }} items.
+            Total items: {{ $invoices->total() }}
         </div>
         <div>
             {{ $invoices->links('vendor.pagination.bootstrap-4') }}
