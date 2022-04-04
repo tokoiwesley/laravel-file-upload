@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\ProcessInvoiceSpreadsheet;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -20,6 +21,12 @@ class InvoiceController extends Controller
         ProcessInvoiceSpreadsheet::dispatch($path);
 
         // Response after a successful upload
-        return redirect(route('upload.success'));
+        return redirect(route('index'));
+    }
+
+    public function index()
+    {
+        $invoices = Invoice::paginate(50);
+        return view('index', ['invoices' => $invoices]);
     }
 }

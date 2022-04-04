@@ -18,6 +18,4 @@ Route::get('/', function () {
 });
 
 Route::post('upload', 'App\Http\Controllers\InvoiceController@upload')->name('upload');
-Route::get('upload', function () {
-    return view('upload');
-})->name('upload.success');
+Route::get('index', 'App\Http\Controllers\InvoiceController@index')->name('index');
