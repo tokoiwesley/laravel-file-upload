@@ -30,16 +30,30 @@ class InvoiceImport implements ToModel, WithChunkReading, WithBatchInserts, With
         ]);
     }
 
+    /**
+     * Specify the amount of rows to read from the spreadsheet at one go in order to keep memory usage under control
+     *
+     * @return int
+     */
     public function chunkSize(): int
+    {
+        return 16384;
+    }
+
+    /**
+     * Specifies the number of models to be inserted in the database at one go (for every insert query)
+     *
+     * @return int
+     */
+    public function batchSize(): int
     {
         return 4096;
     }
 
-    public function batchSize(): int
-    {
-        return 2048;
-    }
-
+    /**
+     * Specifies the row at which data import should start
+     * @return int
+     */
     public function startRow(): int
     {
         return 2;
