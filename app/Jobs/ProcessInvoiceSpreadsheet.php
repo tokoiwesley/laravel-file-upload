@@ -34,7 +34,7 @@ class ProcessInvoiceSpreadsheet implements ShouldQueue
      */
     public function handle()
     {
-        ini_set('memory_limit', '1024M');
+        ini_set('memory_limit', '256M');
         Excel::import(new InvoiceImport, Storage::path($this->path));
         Storage::delete($this->path);
     }
